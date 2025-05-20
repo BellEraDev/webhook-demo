@@ -21,11 +21,13 @@ export default function MessageList({ userId }: { userId: string }) {
     <div className="mt-6">
       <h2 className="text-xl font-semibold mb-2">Your Messages</h2>
       <ul className="space-y-2">
-        {messages.map((msg, i) => (
-          <li key={i} className="bg-gray-100 p-3 rounded text-black">
-            <strong>{msg.name}</strong>: {msg.message}
-          </li>
-        ))}
+        {messages.sort((a, b) => a.createdAt - b.createdAt).map((msg, i) => {
+          return (
+            <li key={i} className="bg-gray-100 p-3 rounded text-black">
+              <strong>{msg.name}</strong>: {msg.message}
+            </li>
+          )
+        })}
       </ul>
     </div>
   );
