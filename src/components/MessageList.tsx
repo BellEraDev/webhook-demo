@@ -22,7 +22,6 @@ export default function MessageList({ userId }: { userId: string }) {
       <h2 className="text-xl font-semibold mb-2">Your Messages</h2>
       <ul className="space-y-2">
         {messages.sort((b, a) => a.createdAt - b.createdAt).map((msg, i) => {
-          console.log(messages)
           return (
             <li key={i} className="bg-gray-100 p-3 rounded text-black">
               <strong>Name</strong>: {msg.name} <br />
