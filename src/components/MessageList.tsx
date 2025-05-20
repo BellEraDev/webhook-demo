@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
