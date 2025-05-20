@@ -2,11 +2,13 @@
 import { useState, useEffect } from "react";
 import MessageList from "@/components/MessageList";
 import { v4 as uuidv4 } from "uuid";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export default function Dashboard() {
     const [name, setName] = useState("");
     const [message, setMessage] = useState("");
-    const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState("");
 
     useEffect(() => {
         let storedId = localStorage.getItem("user_id");
@@ -23,17 +25,16 @@ export default function Dashboard() {
             name,
             message,
             userId,
-          };
+        };
         const webhookUrl = "https://webhook.site/c6f8ec76-b5a4-4778-ab0a-c200923fb916";
         try {
-           
-          const res = await fetch(webhookUrl, {
+          const resWeb = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
           });
       
-          if (!res.ok) {
+          if (!resWeb.ok) {
             throw new Error('Failed to call webhook');
           }
       
@@ -41,6 +42,22 @@ export default function Dashboard() {
         } catch (error) {
           console.error('Webhook error:', error);
         }
+      try {
+        const resFb = await addDoc(collection(db, "messages"), {
+          name,
+          message,
+          userId,
+          createdAt: new Date(),
+        });
+
+        if (!resFb) {
+          throw new Error('Failed to call Firebase');
+        }
+        console.log('Firebase sent successfully!');
+
+      } catch (error) {
+          console.error('Firebase error:', error);
+      }
       };
 
       return (
@@ -69,10 +86,9 @@ export default function Dashboard() {
             </div>
     
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">
-              Send to Webhook
+              Send
             </button>
           </form>
-    
           <MessageList userId={userId} />
         </div>
       );

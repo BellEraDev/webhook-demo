@@ -9,6 +9,7 @@ export default function MessageList({ userId }: { userId: string }) {
 
   useEffect(() => {
     const q = query(collection(db, "messages"), where("userId", "==", userId));
+
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setMessages(snapshot.docs.map((doc) => doc.data()));
     });
@@ -21,7 +22,7 @@ export default function MessageList({ userId }: { userId: string }) {
       <h2 className="text-xl font-semibold mb-2">Your Messages</h2>
       <ul className="space-y-2">
         {messages.map((msg, i) => (
-          <li key={i} className="bg-gray-100 p-3 rounded">
+          <li key={i} className="bg-gray-100 p-3 rounded text-black">
             <strong>{msg.name}</strong>: {msg.message}
           </li>
         ))}

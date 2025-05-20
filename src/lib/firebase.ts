@@ -1,16 +1,24 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyD5BlWxhFYDrMcbhmIQTgwqxB8Ff2wyrUU",
+  authDomain: "webhook-demo-cb4f9.firebaseapp.com",
+  projectId: "webhook-demo-cb4f9",
+  storageBucket: "webhook-demo-cb4f9.firebasestorage.app",
+  messagingSenderId: "1039565153979",
+  appId: "1:1039565153979:web:ccbc21e95f9d30d6f92b9e",
+  measurementId: "G-EYLE738WHH"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+let firebaseApp;
+        
+if (!getApps().length) {
+  firebaseApp = initializeApp(firebaseConfig);
+} else {
+    firebaseApp = getApps()[0]; // if already initialized, use the existing one
+}
 
-export { db };
+const db = getFirestore(firebaseApp);
+
+export { db, firebaseApp};
