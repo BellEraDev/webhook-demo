@@ -89,7 +89,7 @@ export default function Dashboard() {
               Send
             </button>
           </form>
-          <MessageList userId={userId} />
+          <MessageList />
         </div>
       );
 }
