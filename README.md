@@ -13,4 +13,6 @@ Check out our webhook-demo:
 🖥️ Displays data received from the webhook in real-time or near real-time
 
 👥 Supports concurrent users — data must be user-specific and not clash across sessions
+#
+#### Tech stack: Next.js, TypeScript, Tailwind CSS, Webhook.site, Firebase
 
